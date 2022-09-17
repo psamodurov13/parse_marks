@@ -7,8 +7,8 @@ import os
 from bs4 import BeautifulSoup as bs
 
 # Указываем путь к JSON с ключом
-# CREDENTIALS_FILE = 'credentials.json'
-CREDENTIALS_FILE = os.getenv("CREDENTIALS_FILE")
+CREDENTIALS_FILE = 'credentials.json'
+# CREDENTIALS_FILE = os.getenv("CREDENTIALS_FILE")
 
 
 # Функция добавления строки с показателями в Google Sheet
