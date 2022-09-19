@@ -6,7 +6,8 @@ import requests as rq
 import os
 from bs4 import BeautifulSoup as bs
 
-# Указываем путь к JSON с ключом
+
+# Указываем путь к JSON с ключомhe
 CREDENTIALS_FILE = 'credentials.json'
 # CREDENTIALS_FILE = os.getenv("CREDENTIALS_FILE")
 
@@ -46,10 +47,19 @@ def main():
                 marks_morning = [i.text for i in soup.find_all('span', class_='ProductCommentsRating--cnt')]
                 result_m.extend(marks_morning)
                 result_m.append(avg)
+            credentials = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_FILE,
+                                                                           [
+                                                                               'https://www.googleapis.com/auth/spreadsheets',
+                                                                               'https://www.googleapis.com/auth/drive'])
+            gc = gs.authorize(credentials)
+            result = gc.open('Sheets-1').worksheet(result_m[1][3:]).find(result_m[1]).row
+            print(result)
+            res = gc.open('Sheets-1').worksheet(result_m[1][3:]).row_values(28)
+            print(res)
             add_to_gsheet(result_m)
             print('Готово утро')
             counter = 1
-            time.sleep(3600)
+            time.sleep(15)
         elif counter == 1:
             result_e = ['Вечер', datetime.date.today().strftime('%d.%m.%Y')]
             for product in products:
@@ -59,6 +69,13 @@ def main():
                 marks_ev = [i.text for i in soup.find_all('span', class_='ProductCommentsRating--cnt')]
                 result_e.extend(marks_ev)
                 result_e.append('')
+            credentials = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_FILE,
+                                                                           [
+                                                                               'https://www.googleapis.com/auth/spreadsheets',
+                                                                               'https://www.googleapis.com/auth/drive'])
+            gc = gs.authorize(credentials)
+            result_m = gc.open('Sheets-1').worksheet(result_e[1][3:]).row_count
+            print(result_m)
             add_to_gsheet(result_e)
             print('Готово вечер')
             # Считаем разницу между вечерними и утренними данными
@@ -73,7 +90,7 @@ def main():
             add_to_gsheet(result_diff)
             print('Готово разница')
             counter = 0
-            time.sleep(3600)
+            time.sleep(15)
 
 
 if __name__ == '__main__':
