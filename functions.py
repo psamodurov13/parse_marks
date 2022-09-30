@@ -4,7 +4,7 @@ import requests as rq
 from bs4 import BeautifulSoup as bs
 import datetime
 
-# Указываем путь к JSON с ключомhe
+# Указываем путь к JSON с ключом
 CREDENTIALS_FILE = '../credentials.json'
 credentials = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_FILE,
                                                                ['https://www.googleapis.com/auth/spreadsheets',
