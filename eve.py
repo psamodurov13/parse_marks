@@ -2,13 +2,16 @@ import functions as fn
 
 
 def parse_eve():
+    '''
+    The function get evening indicators
+    '''
     result_e = fn.result_e
     result_m = fn.gc.open('Sheets-1').worksheet(fn.today[3:]).row_values(fn.gc.open('Sheets-1')
                                                                       .worksheet(fn.today[3:]).find(fn.today).row)
     fn.parse_marks(fn.products, result_e)
     fn.add_to_gsheet(result_e)
 
-    # Считаем разницу между вечерними и утренними данными
+    # Calculate the difference between evening and morning data
     result_diff = ['Разница', fn.today]
     for i in range(2, len(result_m)):
         if '.' not in result_m[i] and result_e[i].isdigit():
