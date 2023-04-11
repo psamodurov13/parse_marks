@@ -6,8 +6,8 @@ The program collects product ratings, the number of each rating. Collection perf
 
 ### Also, to run the program separately in the morning and in the evening, you can write the following lines in crontab on your server:
 
-0 9 * * * python3 /home/user/python/parse-gabbiano/morn.py
+0 9 * * * python3 /home/user/python/parse-marks/morn.py
 
-0 21 * * * python3 /home/user/python/parse-gabbiano/eve.py
+0 21 * * * python3 /home/user/python/parse-marks/eve.py
 
-where /home/user/python/parse-gabbiano/ is the path to the folder on the server, and 9 and 21 are the script execution hours
+where /home/user/python/parse-marks/ is the path to the folder on the server, and 9 and 21 are the script execution hours
